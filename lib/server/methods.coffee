@@ -91,15 +91,21 @@ Meteor.methods
 				console.log 'Making first user admin: ' + email
 				Roles.addUsersToRoles this.userId, ['admin']
 
-	adminAddUserToRole: (_id,role)->
+	adminAddUserToRole: (_id,role,group)->
 		check arguments, [Match.Any]
 		if Roles.userIsInRole this.userId, ['admin']
-			Roles.addUsersToRoles _id, role, Roles.GLOBAL_GROUP
+			if group
+				Roles.addUsersToRoles _id, role, group
+			else
+				Roles.addUsersToRoles _id, role, Roles.GLOBAL_GROUP
 
-	adminRemoveUserToRole: (_id,role)->
+	adminRemoveUserToRole: (_id,role,group)->
 		check arguments, [Match.Any]
 		if Roles.userIsInRole this.userId, ['admin']
-			Roles.removeUsersFromRoles _id, role, Roles.GLOBAL_GROUP
+			if group
+				Roles.removeUsersFromRoles _id, role, group
+			else
+				Roles.removeUsersFromRoles _id, role, Roles.GLOBAL_GROUP
 
 	adminSetCollectionSort: (collection, _sort) ->
 		check arguments, [Match.Any]

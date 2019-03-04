@@ -104,12 +104,22 @@
 			{{/if}}
 
 			<h4>User Roles</h4>
-			{{#each roles}}
-			<button class="btn btn-primary btn-xs btn-remove-role" role="{{this}}" user="{{admin_current_id}}">{{this}}</button>
-			{{/each}}
-			{{#each otherRoles}}
-			<button class="btn btn-default btn-xs btn-add-role" role="{{this}}" user="{{admin_current_id}}">{{this}}</button>
-			{{/each}}
+            {{#each group in groups}}
+              <h5>{{group}}</h5>
+			  {{#each roles group}} 
+			    <button class="btn btn-primary btn-xs btn-remove-role" role="{{this}}" group="{{group}}" user="{{admin_current_id}}">{{this}}</button>
+			  {{/each}}
+			  {{#each otherRoles group}}
+			    <button class="btn btn-default btn-xs btn-add-role" role="{{this}}" group="{{group}}" user="{{admin_current_id}}">{{this}}</button>
+			  {{/each}}
+            {{/each}}
+			<h4>Global Roles</h4>
+			  {{#each roles group}} 
+			    <button class="btn btn-primary btn-xs btn-remove-role" role="{{this}}" user="{{admin_current_id}}">{{this}}</button>
+			  {{/each}}
+			  {{#each otherRoles}}
+			    <button class="btn btn-default btn-xs btn-add-role" role="{{this}}" user="{{admin_current_id}}">{{this}}</button>
+			  {{/each}}
 			{{#if roles}}
 			<p style="margin-top:5px;">Click a role to toggle it.</p>
 			{{else}}
