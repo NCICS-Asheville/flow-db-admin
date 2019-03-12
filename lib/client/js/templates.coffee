@@ -60,15 +60,23 @@ Template.AdminDashboardUsersEdit.rendered = ->
 Template.AdminDashboardUsersEdit.helpers
   user: -> Meteor.users.find(FlowRouter.getParam '_id').fetch()
   action: -> FlowRouter.getQueryParam 'action'
-  groups: -> Roles.getGroupsForUser(FlowRouter.getParam '_id')
+  groups: ->
+     Meteor.subscribe('projects') 
+     _.map adminCollectionObject('Projects').find({}).fetch(), (project) -> project.identifier
+  #Roles.getGroupsForUser(FlowRouter.getParam '_id')
   roles: (group) -> 
+    user = Meteor.users.findOne(FlowRouter.getParam '_id')
     if group
-      roles = Meteor.user().roles[group]
+      roles = user.roles[group]
       #roles = _.difference(Roles.getRolesForUser(FlowRouter.getParam('_id'), group.toString()), Roles.getRolesForUser(FlowRouter.getParam '_id'))
     else
       roles = Roles.getRolesForUser(FlowRouter.getParam '_id')
   otherRoles: (group) ->
-    if (group) 
-      _.difference _.map(Meteor.roles.find().fetch(), (role) -> role.name), Meteor.user().roles[group] #Roles.getRolesForUser(FlowRouter.getParam('_id'), group)
+    user = Meteor.users.findOne(FlowRouter.getParam '_id')
+    if (group)
+      if (user && user.roles && user.roles[group]) 
+        _.difference _.map(Meteor.roles.find().fetch(), (role) -> role.name), user.roles[group] #Roles.getRolesForUser(FlowRouter.getParam('_id'), group)
+      else
+        _.map(Meteor.roles.find().fetch(), (role) -> role.name)
     else
       _.difference _.map(Meteor.roles.find().fetch(), (role) -> role.name), Roles.getRolesForUser(FlowRouter.getParam '_id')
