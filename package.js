@@ -43,7 +43,7 @@ Package.onUse(function(api) {
 
   api.use(['email'],'server')
 
-  api.add_files([
+  api.addFiles([
     'lib/both/AdminDashboard.coffee',
     'lib/both/routes.js',
     'lib/both/utils.coffee',
@@ -51,7 +51,7 @@ Package.onUse(function(api) {
     'lib/both/collections.coffee'
     ], both);
 
-  api.add_files([
+  api.addFiles([
     'lib/client/html/admin_templates.html',
     'lib/client/html/admin_widgets.html',
     'lib/client/html/fadmin_layouts.html',
@@ -66,7 +66,7 @@ Package.onUse(function(api) {
     'lib/client/css/admin-custom.less'
     ], 'client');
 
-  api.add_files([
+  api.addFiles([
     'lib/server/publish.coffee',
     'lib/server/methods.coffee'
     ], 'server');
