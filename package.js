@@ -20,7 +20,7 @@ Package.onUse(function(api) {
     'coffeescript',
     'underscore',
     'reactive-var',
-    'lamhieu:unblock@1.1.0',
+    'lamhieu:unblock',
     'kadira:flow-router@2.12.1',
     'kadira:blaze-layout@2.3.0',
     'zimme:active-route@2.3.2',
